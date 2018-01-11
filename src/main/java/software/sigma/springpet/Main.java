@@ -1,7 +1,6 @@
 package software.sigma.springpet;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,9 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
+@Log4j2
 public class Main {
-
-    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     /**
      * The home REST endpoint.
@@ -38,6 +36,6 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
-        LOGGER.info("Application started");
+        log.info("Application started");
     }
 }

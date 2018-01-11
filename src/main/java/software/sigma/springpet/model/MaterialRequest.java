@@ -1,6 +1,8 @@
 package software.sigma.springpet.model;
 
-//import org.springframework.data.annotation.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.Id;
  * @author Andriy Klymenko
  */
 @Entity
+@NoArgsConstructor
 public class MaterialRequest {
 
     /**
@@ -21,38 +24,41 @@ public class MaterialRequest {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private Long id;
 
     /**
      * The request number represents the business key of a material request together with the order position.
      */
     @Column(nullable = false)
+    @Getter
+    @Setter
     private Integer requestNumber;
 
     /**
      * The name of the customer to which the material request refers.
      */
     @Column(nullable = false)
+    @Getter
+    @Setter
     private String customerName;
 
     /**
      * Priority.
      */
     @Column(nullable = false)
+    @Getter
+    @Setter
     private Integer priority = 0;
 
     /**
      * Invoice number (character-digital code).
      */
     @Column(nullable = false, unique = true)
+    @Getter
+    @Setter
     private String invoice;
-
-    /**
-     * Default constructor.
-     */
-    public MaterialRequest() {
-
-    }
 
     /**
      * Constructor for creation.
@@ -66,46 +72,6 @@ public class MaterialRequest {
         this.requestNumber = requestNumber;
         this.customerName = customerName;
         this.priority = priority;
-        this.invoice = invoice;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getRequestNumber() {
-        return requestNumber;
-    }
-
-    public void setRequestNumber(Integer requestNumber) {
-        this.requestNumber = requestNumber;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    public String getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(String invoice) {
         this.invoice = invoice;
     }
 }
