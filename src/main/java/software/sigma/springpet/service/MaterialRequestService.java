@@ -3,6 +3,7 @@ package software.sigma.springpet.service;
 import software.sigma.springpet.model.MaterialRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Material request access service.
@@ -17,7 +18,7 @@ public interface MaterialRequestService {
      * @param id id
      * @return material request
      */
-    MaterialRequest findById(Integer id);
+    Optional<MaterialRequest> findById(Long id);
 
     /**
      * Returns the entity list with the specified customerName.

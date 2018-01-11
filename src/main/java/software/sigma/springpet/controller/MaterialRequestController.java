@@ -29,8 +29,8 @@ public class MaterialRequestController {
      * @return MaterialRequest
      */
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public MaterialRequest find(@RequestParam(value = "id") Integer id) {
-        return service.findById(id);
+    public MaterialRequest find(@RequestParam(value = "id") Long id) {
+        return service.findById(id).orElse(null);
     }
 
     /**

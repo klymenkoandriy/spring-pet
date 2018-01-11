@@ -12,15 +12,7 @@ import java.util.List;
  */
 public interface MaterialRequestRepository extends CrudRepository<MaterialRequest, Long> {
 
-    /**
-     * Returns the entity with the specified id.
-     *
-     * @param id id
-     * @return material request
-     */
-    MaterialRequest findById(Integer id);
-
-    /**
+   /**
      * Returns the entity list with the specified customerName.
      *
      * @param customerName customer name

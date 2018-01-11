@@ -8,6 +8,7 @@ import software.sigma.springpet.service.MaterialRequestService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service implementation for MaterialRequest entity.
@@ -21,7 +22,7 @@ public class MaterialRequestServiceImpl implements MaterialRequestService {
     private MaterialRequestRepository repository;
 
     @Override
-    public MaterialRequest findById(Integer id) {
+    public Optional<MaterialRequest> findById(Long id) {
         return repository.findById(id);
     }
 
