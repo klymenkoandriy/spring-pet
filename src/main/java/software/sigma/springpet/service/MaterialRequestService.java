@@ -47,7 +47,7 @@ public interface MaterialRequestService {
      * Saves the entity and returns it.
      *
      * @param entity material request
-     * @return list of  material requests
+     * @return material request
      */
     MaterialRequest add(MaterialRequest entity);
 }
