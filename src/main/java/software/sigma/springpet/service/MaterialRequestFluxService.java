@@ -38,7 +38,7 @@ public interface MaterialRequestFluxService {
      *
      * @return Flux object for entity list
      */
-    Flux<MaterialRequest> allMaterialRequest();
+    Flux<MaterialRequest> getAll();
 
     /**
      * Saves the entity and returns the Mono object that represents the entity.
@@ -46,7 +46,22 @@ public interface MaterialRequestFluxService {
      * @param materialRequest material request
      * @return Mono object for material request
      */
-    Mono<MaterialRequest> saveMaterialRequest(Mono<MaterialRequest> materialRequest);
+    Mono<MaterialRequest> save(Mono<MaterialRequest> materialRequest);
 
 
+    /**
+     * Deletes the entity with the specified id.
+     *
+     * @param id id
+     * @return <code>true</code> if successful, otherwise <code>false</code>
+     */
+    boolean delete(Long id);
+
+    /**
+     * Checks whether the entity exists or not.
+     *
+     * @param id id
+     * @return <code>true</code> if the entity exists, otherwise <code>false</code>
+     */
+    boolean exists(Long id);
 }

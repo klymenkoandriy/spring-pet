@@ -49,5 +49,21 @@ public interface MaterialRequestService {
      * @param entity material request
      * @return material request
      */
-    MaterialRequest add(MaterialRequest entity);
+    MaterialRequest save(MaterialRequest entity);
+
+    /**
+     * Deletes the entity with the specified id.
+     *
+     * @param id id
+     * @return <code>true</code> if successful, otherwise <code>false</code>
+     */
+    boolean delete(Long id);
+
+    /**
+     * Checks whether the entity exists or not.
+     *
+     * @param id id
+     * @return <code>true</code> if the entity exists, otherwise <code>false</code>
+     */
+    boolean exists(Long id);
 }

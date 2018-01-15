@@ -44,7 +44,22 @@ public class MaterialRequestServiceImpl implements MaterialRequestService {
     }
 
     @Override
-    public MaterialRequest add(MaterialRequest entity) {
+    public MaterialRequest save(MaterialRequest entity) {
         return repository.save(entity);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean exists(Long id) {
+        return repository.existsById(id);
     }
 }

@@ -33,15 +33,28 @@ public class MaterialRequestFluxServiceImpl implements MaterialRequestFluxServic
     }
 
     @Override
-    public Flux<MaterialRequest> allMaterialRequest() {
+    public Flux<MaterialRequest> getAll() {
         return Flux.fromIterable(repository.findAll());
     }
 
     @Override
-    public Mono<MaterialRequest> saveMaterialRequest(Mono<MaterialRequest> materialRequest) {
+    public Mono<MaterialRequest> save(Mono<MaterialRequest> materialRequest) {
         return materialRequest.doOnNext(entity -> {
             repository.save(entity);
         });
+    }
+
+    @Override public boolean delete(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override public boolean exists(Long id) {
+        return repository.existsById(id);
     }
 
 }
