@@ -1,8 +1,7 @@
 package software.sigma.springpet.controller;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +20,13 @@ import software.sigma.springpet.service.MaterialRequestFluxService;
  *
  * @author Andriy Klymenko
  */
+@Log4j2
 @RestController
 @RequestMapping(value = "/materialrequest/flux")
 public class MaterialRequestFluxController {
 
     @Autowired
-    private MaterialRequestFluxService fluxService;
+    MaterialRequestFluxService service;
 
     /**
      * Endpoint to get material request by id using flux service.
@@ -35,8 +35,8 @@ public class MaterialRequestFluxController {
      * @return material request as JSON
      */
     @GetMapping(path = "/get/{id}")
-    public Mono<MaterialRequest> fluxFind(@PathVariable Long id) {
-        return  fluxService.getMaterialRequest(id);
+    public Mono<MaterialRequest> fluxFind(@PathVariable String id) {
+        return  service.findById(id);
     }
 
     /**
@@ -47,7 +47,7 @@ public class MaterialRequestFluxController {
      */
     @PostMapping(path = "/save")
     public Mono<MaterialRequest> fluxSave(@RequestBody MaterialRequest materialRequest) {
-        return  fluxService.save(Mono.justOrEmpty(materialRequest));
+        return  service.save(Mono.just(materialRequest));
     }
 
     /**
@@ -57,18 +57,8 @@ public class MaterialRequestFluxController {
      * @return result info
      */
     @DeleteMapping("/delete/{id}")
-    public Mono<ResponseEntity> delete(@PathVariable Long id) {
-        ResponseEntity responseEntity = null;
-
-        if (!fluxService.exists(id)) {
-            responseEntity = new ResponseEntity("No MaterialRequest found for ID: " + id, HttpStatus.NOT_FOUND);
-        } else if (!fluxService.delete(id)) {
-            responseEntity = new ResponseEntity("Delete error for MaterialRequest ID: " + id, HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-            responseEntity = new ResponseEntity("Deleted MaterialRequest ID: " + id, HttpStatus.OK);
-        }
-
-        return Mono.justOrEmpty(responseEntity);
+    public Mono<Boolean> delete(@PathVariable String id) {
+        return service.delete(id);
     }
 
     /**
@@ -78,7 +68,7 @@ public class MaterialRequestFluxController {
      */
     @GetMapping(path = "/get")
     public Flux<MaterialRequest> fluxFindAll() {
-        return  fluxService.getAll();
+        return  service.findAll();
     }
 
     /**
@@ -89,7 +79,7 @@ public class MaterialRequestFluxController {
      */
     @GetMapping(value = "/getByCustomerName")
     public Flux<MaterialRequest> fluxFindByCustomerName(@RequestParam(value = "customerName") String name) {
-        return  fluxService.findByCustomerName(name);
+        return  service.findByCustomerName(name);
     }
 
     /**
@@ -100,6 +90,6 @@ public class MaterialRequestFluxController {
      */
     @GetMapping(value = "/getByInvoice")
     public Flux<MaterialRequest> fluxFindByInvoice(@RequestParam(value = "invoice") String invoice) {
-        return  fluxService.findByInvoice(invoice);
+        return  service.findByInvoice(invoice);
     }
 }

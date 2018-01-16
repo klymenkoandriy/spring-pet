@@ -1,5 +1,6 @@
 package software.sigma.springpet.service.impl;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.sigma.springpet.domain.MaterialRequestRepository;
@@ -15,6 +16,7 @@ import java.util.Optional;
  *
  * @author Andriy Klymenko
  */
+@Log4j2
 @Service
 public class MaterialRequestServiceImpl implements MaterialRequestService {
 
@@ -22,7 +24,7 @@ public class MaterialRequestServiceImpl implements MaterialRequestService {
     private MaterialRequestRepository repository;
 
     @Override
-    public Optional<MaterialRequest> findById(Long id) {
+    public Optional<MaterialRequest> findById(String id) {
         return repository.findById(id);
     }
 
@@ -49,7 +51,7 @@ public class MaterialRequestServiceImpl implements MaterialRequestService {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(String id) {
         try {
             repository.deleteById(id);
         } catch (Exception e) {
@@ -59,7 +61,8 @@ public class MaterialRequestServiceImpl implements MaterialRequestService {
     }
 
     @Override
-    public boolean exists(Long id) {
+    public boolean exists(String id) {
         return repository.existsById(id);
     }
+
 }

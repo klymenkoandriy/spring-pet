@@ -10,12 +10,12 @@ import software.sigma.springpet.model.MaterialRequest;
 public interface MaterialRequestFluxService {
 
     /**
-     * Returns the Mono object that represents the entity with the specified id.
+     * Returns the entity with the specified id.
      *
      * @param id id
-     * @return Mono object for material request
+     * @return material request
      */
-    Mono<MaterialRequest> getMaterialRequest(long id);
+    Mono<MaterialRequest> findById(String id);
 
     /**
      * Returns the Flux object that represents the entity list with the specified customerName.
@@ -38,7 +38,7 @@ public interface MaterialRequestFluxService {
      *
      * @return Flux object for entity list
      */
-    Flux<MaterialRequest> getAll();
+    Flux<MaterialRequest> findAll();
 
     /**
      * Saves the entity and returns the Mono object that represents the entity.
@@ -55,7 +55,7 @@ public interface MaterialRequestFluxService {
      * @param id id
      * @return <code>true</code> if successful, otherwise <code>false</code>
      */
-    boolean delete(Long id);
+    Mono<Boolean> delete(String id);
 
     /**
      * Checks whether the entity exists or not.
@@ -63,5 +63,5 @@ public interface MaterialRequestFluxService {
      * @param id id
      * @return <code>true</code> if the entity exists, otherwise <code>false</code>
      */
-    boolean exists(Long id);
+    Mono<Boolean> exists(String id);
 }

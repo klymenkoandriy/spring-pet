@@ -24,7 +24,7 @@ public class Main {
      * @return response
      */
     @RequestMapping("/")
-    String home() {
+    public String home() {
         return "Home";
     }
 

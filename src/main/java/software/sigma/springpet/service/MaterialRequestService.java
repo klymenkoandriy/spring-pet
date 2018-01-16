@@ -18,7 +18,7 @@ public interface MaterialRequestService {
      * @param id id
      * @return material request
      */
-    Optional<MaterialRequest> findById(Long id);
+    Optional<MaterialRequest> findById(String id);
 
     /**
      * Returns the entity list with the specified customerName.
@@ -57,7 +57,7 @@ public interface MaterialRequestService {
      * @param id id
      * @return <code>true</code> if successful, otherwise <code>false</code>
      */
-    boolean delete(Long id);
+    boolean delete(String id);
 
     /**
      * Checks whether the entity exists or not.
@@ -65,5 +65,5 @@ public interface MaterialRequestService {
      * @param id id
      * @return <code>true</code> if the entity exists, otherwise <code>false</code>
      */
-    boolean exists(Long id);
+    boolean exists(String id);
 }

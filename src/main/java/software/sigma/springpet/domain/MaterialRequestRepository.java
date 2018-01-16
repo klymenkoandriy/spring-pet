@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Andriy Klymenko
  */
-public interface MaterialRequestRepository extends CrudRepository<MaterialRequest, Long> {
+public interface MaterialRequestRepository extends CrudRepository<MaterialRequest, String> {
 
    /**
      * Returns the entity list with the specified customerName.

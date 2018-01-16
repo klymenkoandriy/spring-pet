@@ -1,5 +1,6 @@
 package software.sigma.springpet.controller;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import software.sigma.springpet.model.MaterialRequest;
-import software.sigma.springpet.service.MaterialRequestFluxService;
 import software.sigma.springpet.service.MaterialRequestService;
 
 import java.util.List;
@@ -23,15 +23,13 @@ import java.util.List;
  *
  * @author Andriy Klymenko
  */
+@Log4j2
 @RestController
 @RequestMapping(value = "/materialrequest")
 public class MaterialRequestController {
 
     @Autowired
     private MaterialRequestService service;
-
-    @Autowired
-    private MaterialRequestFluxService fluxService;
 
     /**
      * Endpoint to get material request by id.
@@ -40,7 +38,7 @@ public class MaterialRequestController {
      * @return material request as JSON
      */
     @GetMapping(path = "/get/{id}")
-    public ResponseEntity find(@PathVariable Long id) {
+    public ResponseEntity find(@PathVariable String id) {
         MaterialRequest entity = service.findById(id).orElse(null);
 
         if (entity == null) {
@@ -79,7 +77,7 @@ public class MaterialRequestController {
      * @return result info
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable String id) {
 
         if (!service.exists(id)) {
             return new ResponseEntity("No MaterialRequest found for ID: " + id, HttpStatus.NOT_FOUND);
