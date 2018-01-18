@@ -55,9 +55,8 @@ public interface MaterialRequestService {
      * Deletes the entity with the specified id.
      *
      * @param id id
-     * @return <code>true</code> if successful, otherwise <code>false</code>
      */
-    boolean delete(String id);
+    void delete(String id);
 
     /**
      * Checks whether the entity exists or not.

@@ -17,6 +17,7 @@ import software.sigma.springpet.model.MaterialRequest;
 import software.sigma.springpet.service.MaterialRequestService;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controller for Material Requests.
@@ -32,62 +33,41 @@ public class MaterialRequestController {
     private MaterialRequestService service;
 
     /**
-     * Endpoint to get material request by id.
+     * Endpoint to get the material request by id.
      *
      * @param id id
      * @return material request as JSON
      */
     @GetMapping(path = "/get/{id}")
     public ResponseEntity find(@PathVariable String id) {
-        MaterialRequest entity = service.findById(id).orElse(null);
-
-        if (entity == null) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-
-        return   new ResponseEntity(entity, HttpStatus.OK);
+        Optional<MaterialRequest> entity = service.findById(id);
+        return (entity.isPresent()) ? new ResponseEntity<>(entity.get(), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     /**
-     * Endpoint to add material request.
+     * Endpoint to create the material request.
      *
      * @param materialRequest material request
      * @return material request as JSON
      */
     @PostMapping(path = "/save")
-    public ResponseEntity save(@RequestBody MaterialRequest materialRequest) {
-        return new ResponseEntity(service.save(materialRequest), HttpStatus.OK);
+    public ResponseEntity create(@RequestBody MaterialRequest materialRequest) {
+        return new ResponseEntity<>(service.save(materialRequest), HttpStatus.OK);
     }
 
     /**
-     * Endpoint to add material request.
-     *
-     * @param materialRequest material request
-     * @return material request as JSON
-     */
-    @PostMapping(path = "/update")
-    public ResponseEntity update(@RequestBody MaterialRequest materialRequest) {
-        return  new ResponseEntity(service.save(materialRequest), HttpStatus.OK);
-    }
-
-    /**
-     * Endpoint to delete material request with specified id.
+     * Endpoint to delete the material request with specified id.
      *
      * @param id id
      * @return result info
      */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable String id) {
-
         if (!service.exists(id)) {
-            return new ResponseEntity("No MaterialRequest found for ID: " + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-
-        if (!service.delete(id)) {
-            return new ResponseEntity("Delete error for MaterialRequest ID: " + id, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity("Deleted MaterialRequest ID: " + id, HttpStatus.OK);
+        service.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     /**

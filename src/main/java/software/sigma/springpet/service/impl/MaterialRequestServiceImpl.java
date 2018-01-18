@@ -51,13 +51,8 @@ public class MaterialRequestServiceImpl implements MaterialRequestService {
     }
 
     @Override
-    public boolean delete(String id) {
-        try {
-            repository.deleteById(id);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 
     @Override

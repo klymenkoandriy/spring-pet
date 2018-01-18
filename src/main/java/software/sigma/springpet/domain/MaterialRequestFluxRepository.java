@@ -5,6 +5,8 @@ import reactor.core.publisher.Flux;
 import software.sigma.springpet.model.MaterialRequest;
 
 /**
+ * Material Request Reactive Repository.
+ *
  * @author Andriy Klymenko
  */
 public interface MaterialRequestFluxRepository extends ReactiveCrudRepository<MaterialRequest, String> {

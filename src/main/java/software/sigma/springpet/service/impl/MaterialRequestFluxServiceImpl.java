@@ -2,6 +2,8 @@ package software.sigma.springpet.service.impl;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -10,6 +12,8 @@ import software.sigma.springpet.model.MaterialRequest;
 import software.sigma.springpet.service.MaterialRequestFluxService;
 
 /**
+ * Reactive service implementation for MaterialRequest entity.
+ *
  * @author Andriy Klymenko
  */
 @Log4j2
@@ -20,8 +24,10 @@ public class MaterialRequestFluxServiceImpl implements MaterialRequestFluxServic
     private MaterialRequestFluxRepository repository;
 
     @Override
-    public Mono<MaterialRequest> findById(String id) {
-        return repository.findById(id);
+    public Mono<ResponseEntity<MaterialRequest>> findById(String id) {
+        return repository.findById(id)
+                .flatMap(entity -> Mono.just(new ResponseEntity<>(entity, HttpStatus.OK)))
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -40,25 +46,16 @@ public class MaterialRequestFluxServiceImpl implements MaterialRequestFluxServic
     }
 
     @Override
-    public Mono<MaterialRequest> save(Mono<MaterialRequest> materialRequest) {
-        return materialRequest.doOnNext(entity -> {
-            repository.save(entity);
-        });
+    public Mono<MaterialRequest> save(MaterialRequest materialRequest) {
+        return repository.save(materialRequest);
     }
 
     @Override
-    public Mono<Boolean> delete(String id) {
-        try {
-            repository.deleteById(id);
-        } catch (Exception e) {
-            Mono.just(false);
-        }
-        return Mono.just(true);
-    }
-
-    @Override
-    public Mono<Boolean> exists(String id) {
-        return repository.existsById(id);
+    public Mono<ResponseEntity<Void>> delete(String id) {
+        return repository.findById(id)
+                .flatMap(entity -> repository.delete(entity)
+                        .then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK))))
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

@@ -2,6 +2,7 @@ package software.sigma.springpet.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class MaterialRequestFluxController {
      * @return material request as JSON
      */
     @GetMapping(path = "/get/{id}")
-    public Mono<MaterialRequest> fluxFind(@PathVariable String id) {
+    public Mono<ResponseEntity<MaterialRequest>> fluxFind(@PathVariable String id) {
         return  service.findById(id);
     }
 
@@ -47,7 +48,7 @@ public class MaterialRequestFluxController {
      */
     @PostMapping(path = "/save")
     public Mono<MaterialRequest> fluxSave(@RequestBody MaterialRequest materialRequest) {
-        return  service.save(Mono.just(materialRequest));
+        return  service.save(materialRequest);
     }
 
     /**
@@ -57,7 +58,7 @@ public class MaterialRequestFluxController {
      * @return result info
      */
     @DeleteMapping("/delete/{id}")
-    public Mono<Boolean> delete(@PathVariable String id) {
+    public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
         return service.delete(id);
     }
 

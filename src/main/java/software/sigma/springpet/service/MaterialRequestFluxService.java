@@ -1,10 +1,13 @@
 package software.sigma.springpet.service;
 
+import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import software.sigma.springpet.model.MaterialRequest;
 
 /**
+ * Material request reactive access service.
+ *
  * @author Andriy Klymenko
  */
 public interface MaterialRequestFluxService {
@@ -13,9 +16,9 @@ public interface MaterialRequestFluxService {
      * Returns the entity with the specified id.
      *
      * @param id id
-     * @return material request
+     * @return response
      */
-    Mono<MaterialRequest> findById(String id);
+    Mono<ResponseEntity<MaterialRequest>> findById(String id);
 
     /**
      * Returns the Flux object that represents the entity list with the specified customerName.
@@ -46,22 +49,14 @@ public interface MaterialRequestFluxService {
      * @param materialRequest material request
      * @return Mono object for material request
      */
-    Mono<MaterialRequest> save(Mono<MaterialRequest> materialRequest);
-
+    Mono<MaterialRequest> save(MaterialRequest materialRequest);
 
     /**
      * Deletes the entity with the specified id.
      *
      * @param id id
-     * @return <code>true</code> if successful, otherwise <code>false</code>
+     * @return response
      */
-    Mono<Boolean> delete(String id);
+    Mono<ResponseEntity<Void>> delete(String id);
 
-    /**
-     * Checks whether the entity exists or not.
-     *
-     * @param id id
-     * @return <code>true</code> if the entity exists, otherwise <code>false</code>
-     */
-    Mono<Boolean> exists(String id);
 }
