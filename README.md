@@ -1,30 +1,11 @@
 # Spring-pet application
 
-- Experimental project to try Spring, SpringBoot, SpringData, Docker, WebFlux.
+**Experimental project to try Spring, SpringBoot, SpringData, Docker, WebFlux.**
     
-### **Standard deployment in Docker**
-1. Pull the latest MongoDB image:
+### **Deployment and start using Docker Compose**
+- From your project directory, start up your application by running:
 
-        docker pull mongo
-
-    You can pull an image with a specific version
-    - Example: docker pull mongo:3.6.2
-
-2. Build application image:
-
-        docker build -f Dockerfile -t springdemo .
-        
-3. Run MongoDB
-
-        docker run -d -p 27017:27017 --name mongo mongo
-
-4. Run application
-
-        docker run -p 8080:8080 --link mongo:mongo -t springdemo
-
-5. Use the root endpoint to access to the application:
-
-        http://192.168.99.100:8080
+        docker-compose up
 
 ### Default properties
 **_Database access_**
@@ -35,27 +16,36 @@
 - **port** : 27017
 
 ### **Custom properties**
-**_Database name_**
 
-- If you want to change Database name, set the property 'spring.data.mongodb.database' in the 'application.properties' file.
-    Example: spring.data.mongodb.database=SomeDbName
+**_Database parameters in application properties_**
 
-**_Database path in application properties_**
+If you want to change default Database properties, set them in the command line or in the 'application.properties' file.
 
-- To change the path to the database, change the properties on the command line or set them in the 'application.properties' file.
+If application is started in Docker and you use command line parameters, you should set them in the 'Docker' file.
+
+- To change the path to the database, change the properties 'spring.data.mongodb.host' and 'spring.data.mongodb.port'.
     -  Example for external access: 
         - spring.data.mongodb.host=192.168.99.100
         - spring.data.mongodb.port=27000
-    - Example for interanl access: 
+    - Example for internal access: 
         - spring.data.mongodb.host=mongo
         - spring.data.mongodb.port=27017
-- If application is started in Docker and you use command line parameters, you should set them in the 'Docker' file.
 
-**_Database path in MongoDB image_**
+- To change Database name, set (change) the property 'spring.data.mongodb.database'.
 
-- To the change DB access parameters, set them in the docker 'run' command.
-    - Example:     
-    docker run -d -p 27000:27017 --name mongo mongo
+    - Example:
+
+            spring.data.mongodb.database=SomeDbName
+
+**_Database parameters in Docker_**
+
+- To change the DB access parameters, set them in the 'docker-compose.yml' file.
+
+    - Example:
+           
+            ports:
+                - "27000:27017"
+                
 
 **_Additional command line parameters_**
         
@@ -101,23 +91,23 @@ for disabling warnings about illegal reflective access operations in Java 9:
 ### **REST API**
 **_CRUD operations for materialrequest entity._**
 
-MaterialRequest entity fields:
+- MaterialRequest entity fields:
 
-    id              : String
-    requestNumber   : Integer
-    customerName    : String
-    priority        : Integer
-    invoice         : String
+        id              : String
+        requestNumber   : Integer
+        customerName    : String
+        priority        : Integer
+        invoice         : String
     
-Root endpoint for standard access:
+- Root endpoint for standard access:
 
-    /materialrequest
+        /materialrequest
 
-Root endpoint for reactive access:
+- Root endpoint for reactive access:
 
-    /materialrequest/flux        
+        /materialrequest/flux        
 
-**GET** (type JSON):
+- **GET** (type JSON):
 
         /get 
             Returns all entities.
@@ -131,7 +121,7 @@ Root endpoint for reactive access:
         /getByInvoice?invoice={invoice}
             Returns entities with specified invoice.
 
-**POST** (type JSON):
+- **POST** (type JSON):
 
         /save
             Saves the entity and returns it.
@@ -146,7 +136,7 @@ Root endpoint for reactive access:
                 }
 
         
-**DELETE**
+- **DELETE**
 
         /delete/{id}
             Deletes the entity with the specified id.
