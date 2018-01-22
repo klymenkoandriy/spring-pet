@@ -1,5 +1,6 @@
 package software.sigma.springpet.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,43 +11,36 @@ import org.springframework.data.annotation.Id;
  *
  * @author Andriy Klymenko
  */
+@Getter
+@Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class MaterialRequest {
 
     /**
      * The unique technical key for the material request.
      */
     @Id
-    @Getter
-    @Setter
     private String id;
 
     /**
      * The request number represents the business key of a material request together with the order position.
      */
-    @Getter
-    @Setter
     private Integer requestNumber;
 
     /**
      * The name of the customer to which the material request refers.
      */
-    @Getter
-    @Setter
     private String customerName;
 
     /**
      * Priority.
      */
-    @Getter
-    @Setter
     private Integer priority = 0;
 
     /**
      * Invoice number (character-digital code).
      */
-    @Getter
-    @Setter
     private String invoice;
 
     /**
