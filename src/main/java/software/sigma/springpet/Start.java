@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 @ComponentScan
 @Log4j2
-public class Main {
+public class Start {
 
     /**
      * The home REST endpoint.
@@ -35,7 +35,7 @@ public class Main {
      * @throws Exception exception
      */
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(Start.class, args);
         log.info("Application started");
     }
 }
