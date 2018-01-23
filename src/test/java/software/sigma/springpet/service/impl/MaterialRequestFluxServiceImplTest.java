@@ -52,7 +52,8 @@ public class MaterialRequestFluxServiceImplTest {
     public void init() {
         materialRequest = new MaterialRequest(1, CUSTOMER_NAME, 2, INVOICE);
         materialRequest.setId(ID);
-        expectedList = List.of(materialRequest);
+        expectedList = new ArrayList<>();
+        expectedList.add(materialRequest);
         resultList = new ArrayList<>();
     }
 

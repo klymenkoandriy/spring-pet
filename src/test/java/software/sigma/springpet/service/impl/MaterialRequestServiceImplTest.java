@@ -11,6 +11,7 @@ import software.sigma.springpet.domain.MaterialRequestRepository;
 import software.sigma.springpet.model.MaterialRequest;
 import software.sigma.springpet.service.MaterialRequestService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +50,7 @@ public class MaterialRequestServiceImplTest {
 
     @Test
     public void shouldReturnAllEntities() {
-        Iterable <MaterialRequest> expected = List.of(materialRequest);
+        List<MaterialRequest> expected = createExpectedList();
         when(repository.findAll()).thenReturn(expected);
         assertEquals(expected, service.findAll());
     }
@@ -63,14 +64,14 @@ public class MaterialRequestServiceImplTest {
 
     @Test
     public void shouldReturnEntitiesByInvoice() {
-        List <MaterialRequest> expected = List.of(materialRequest);
+        List<MaterialRequest> expected = createExpectedList();
         when(repository.findByInvoice(INVOICE)).thenReturn(expected);
         assertEquals(expected, service.findByInvoice(INVOICE));
     }
 
     @Test
     public void shouldReturnEntitiesByCustomerName() {
-        List <MaterialRequest> expected = List.of(materialRequest);
+        List<MaterialRequest> expected = createExpectedList();
         when(repository.findByCustomerName(CUSTOMER_NAME)).thenReturn(expected);
         assertEquals(expected, service.findByCustomerName(CUSTOMER_NAME));
     }
@@ -92,5 +93,11 @@ public class MaterialRequestServiceImplTest {
         doNothing().when(repository).deleteById(ID);
         service.delete(ID);
         verify(repository).deleteById(ID);
+    }
+
+    private List<MaterialRequest> createExpectedList() {
+        List<MaterialRequest> expected = new ArrayList<>();
+        expected.add(materialRequest);
+        return expected;
     }
 }
