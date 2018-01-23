@@ -146,7 +146,11 @@ for disabling warnings about illegal reflective access operations in Java 9:
         
 ### **Performance testing**
 You can compare performance of GET operations in standard access and reactive access.
-    
+These results show the difference between blocking and nonblocking sccess.
+But this test doesn't measure real time of data obtaining.
+For the correct comparison, you should use REST-client to emulate synchronous access of many users.
+For example, you can use JMeter.
+
 - **Test getting a list of entities**: /materialrequest/test/get/{number}
     - **number**: number of read operations you want to perform
 
