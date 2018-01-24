@@ -2,7 +2,7 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <Property name="LOG_PATTERN">
-            %5p %-40.40c{1.} : %m%n%ex
+            [%-5p] %d{HH:mm:ss.SSS} %c{1.}:%L - %m%n
         </Property>
     </Properties>
     <Appenders>
@@ -11,10 +11,9 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="com.example.log4j2demo" level="debug" additivity="false">
-            <AppenderRef ref="ConsoleAppender" />
+        <Logger name="software.sigma.springpet" level="debug" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
         </Logger>
-
         <Root level="info">
             <AppenderRef ref="ConsoleAppender" />
         </Root>
