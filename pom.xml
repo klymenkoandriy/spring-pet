@@ -6,7 +6,7 @@
 
     <groupId>software.sigma.klymenko</groupId>
     <artifactId>spring-pet</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>spring-pet</name>
 
     <properties>
