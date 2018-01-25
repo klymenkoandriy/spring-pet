@@ -5,7 +5,7 @@
 ### **Deployment and start using Docker Compose**
 - From your project directory, start up your application by running:
 
-        docker-compose up
+        docker-compose up --build -d
 
 ### Default properties
 **_Database access_**
